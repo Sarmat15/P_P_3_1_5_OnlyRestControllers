@@ -1,6 +1,7 @@
 package com.example.demo.DAO;
 
 import com.example.demo.model.Role;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

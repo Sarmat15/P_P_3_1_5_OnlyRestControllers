@@ -16,13 +16,14 @@ import javax.validation.Valid;
 public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
+
     @Autowired
     public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
     @GetMapping()
-    public String getAllUsersForm(Model model){
+    public String getAllUsersForm(Model model) {
         model.addAttribute("user", userService.getAllUsers());
         return "admin/admin";
     }
@@ -39,8 +40,18 @@ public class AdminController {
         return "admin/new";
     }
 
-    @PostMapping("/edit/{id}")
-    public String getUserEditionForm(Model model, @PathVariable("id") int id) {
+    @PostMapping
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/new";
+        } else {
+            userService.createNewUser(user);
+            return "redirect:/admin";
+        }
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getUserEditionForm(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin/edit";
@@ -56,7 +67,7 @@ public class AdminController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "redirect:/admin";

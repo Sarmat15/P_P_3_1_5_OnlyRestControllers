@@ -40,7 +40,7 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     @NotEmpty(message = "Password should not be empty")
-    @Size(min = 6, message = "Name should be between 6 characters")
+    @Size(min = 6, message = "Password should be more that 6 characters")
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
@@ -50,6 +50,7 @@ public class User implements UserDetails {
 
     public User() {
     }
+
 
 
     public User(String name, String surname, int age, String email, String username, String password, Set<Role> roles) {
@@ -114,20 +115,8 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && age == user.age && Objects.equals(name, user.name)
-                && Objects.equals(surname, user.surname) && Objects.equals(email, user.email)
-                && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, surname, age, email, password, roles);
-    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
