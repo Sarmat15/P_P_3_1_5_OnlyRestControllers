@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Новый пользователь</title>
 </head>
 <body>
 
@@ -32,10 +32,14 @@
   <input type="text" th:field="*{password}" id="password"/>
   <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
   <br/>
-  <label for="role"> Select role</label>
-  <select id="role" th:field="*{roles}" multiple>
-    <option th:each="role:${roles}" th:value="${{role}}" th:text="${role.rolename}"/>
-  </select>
+  <label>Уровень доступа:
+    <input type="checkbox" name="roles"
+           th:each="role1 : ${roles}"
+           th:value="${role1.getId()}"
+           th:text="${role1.getName()}"
+           th:field="*{roles}"
+    />
+  </label>
   <br/>
   <input type="submit" value="Создать!"/>
 </form>
