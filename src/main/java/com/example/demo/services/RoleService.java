@@ -11,4 +11,7 @@ public interface RoleService {
     public List<Role> getAllRoles();
 
     public void addRole(Role role);
+
+    List<Role> findAllRoles();
+    void saveRole(Role role);
 }

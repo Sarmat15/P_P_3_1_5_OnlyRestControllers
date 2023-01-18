@@ -18,4 +18,12 @@ public interface UserService extends UserDetailsService {
      void deleteUser(int id);
 
      User findUserByUsername(String username);
+
+ void saveUser(User user);
+
+ void deleteUserById(Integer id);
+
+ User getUserById(Integer id);
+
+ User findByEmail(String name);
 }

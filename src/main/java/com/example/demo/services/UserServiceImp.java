@@ -70,5 +70,26 @@ public class UserServiceImp implements UserService {
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+    @Transactional
+    @Override
+    public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+    @Transactional
+    @Override
+    public void deleteUserById(Integer id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public User getUserById(Integer id) {
+        return userRepository.getById(id);
+    }
+
+    @Override
+    public User findByEmail(String name) {
+        return null;
+    }
 
 }
